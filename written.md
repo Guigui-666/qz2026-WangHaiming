@@ -182,7 +182,9 @@ import copy
 c = copy.deepcopy(a)
 ```
 
-（在此作答）
+（1）abc之间的关系：b是对a的浅拷贝，b有新的外层列表，但是子列表[1,2][3,4]与a 共享；c是对a的深拷贝，不仅有新的外层列表，内层的子列表也是全新的独立对象。
+（2）b.[1,2,99][3,4],由于b和a共享子列表，所以在a中第一个子列表末尾加入99后，b也随之改变；     
+c.[1,2][3,4],由于c是a的深拷贝，c的子列表独立不受a的子列表变化影响，所以c与原来的a一样。
 
 ### 第 2 题：字典与列表的综合应用
 
@@ -202,7 +204,10 @@ logs = [
 2. 写出表达式，统计每个用户出现了几次（返回字典，键为用户名，值为次数）。
 3. 解释为什么第 2 问不能直接用 `len(logs)` 得到结果，需要什么遍历结构？
 
-（在此作答）
+1.[item for item in logs if item["level"] == "ERROR"]
+2.from collections import Counter
+  Counter(log["user"]for log in logs)
+3.len(logs)用于获取日志列表一共有多少条记录，而不能区分不同用户的记录次数。需要用到for循环遍历，循环每一条日志，提取user用户名进行统计。
 
 ### 第 3 题：异常处理设计
 
@@ -217,5 +222,14 @@ Day_10 中你写过 `safe_int(s)` 函数：能转就返回整数，不能转就�
 
 请写出函数代码，并说明：为什么这里用 `try/except` 比先用 `if` 判断再计算更好？
 
-（在此作答）
+def safe_divide(a,b):    
+try:        
+num_a = float(a)        
+num_b = float(b)        
+return num_a / num_b    
+except (ValueError, ZeroDivisionError):        
+return None
+
+为什么try/except更好？
+try/except是先尝试执行，捕获异常，if更复杂，且无法包含所有错误情况，不如try/except简单明了。
 
