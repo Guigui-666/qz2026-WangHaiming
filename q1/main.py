@@ -12,6 +12,13 @@ def analyze_log(filepath: str) -> dict:
                 line = line.strip()
                 if not line:                               #遇到空白行进行下一轮循环
                     continue
+                     try:                                       #尝试将JSON文件信息转化为Python字符串
+                    data = json.loads(line)
+                    level = data["level"]                      #将level和user信息提取出来
+                    user = data["user"]
+                    message = data["message"]
+                except (json.JSONDecodeError, KeyError):   #如遇到JSON格式错误或键不存在，进行下一轮循环
+                    continue
  except FileNotFoundError:                              #如果无法找到该文件，则暂不处理
         pass
 return result
