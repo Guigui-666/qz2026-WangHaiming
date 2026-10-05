@@ -15,3 +15,7 @@ class UserManager:
         return new_user
 
     def get_user(self, user_id):                             # 根据id查找用户
+         for user in self.users:
+            if user["id"] == user_id:
+                return user
+        return None
