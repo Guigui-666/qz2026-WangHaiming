@@ -37,3 +37,18 @@ def update_age(self, user_id, new_age):                  # 修改指定id用户�
 
     def list_users(self):                                    # 返回全部用户列表
         return self.users
+         def save_to_json(self, filepath):                        # 将用户数据保存到json文件
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(self.users, f, ensure_ascii=False)
+
+    def load_from_json(self, filepath):                       # 从json读取数据，覆盖当前用户
+        with open(filepath, "r", encoding="utf-8") as f:
+            self.users = json.load(f)
+        
+        if len(self.users) > 0:                              #更新最大id，保证新增id连续
+            id_list = []
+            for u in self.users:
+                id_list.append(u["id"])
+            self.max_id = max(id_list)
+        else:
+            self.max_id = 0
