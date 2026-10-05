@@ -52,3 +52,6 @@ def update_age(self, user_id, new_age):                  # 修改指定id用户�
             self.max_id = max(id_list)
         else:
             self.max_id = 0
+if __name__ == "__main__":
+    pass
+    
