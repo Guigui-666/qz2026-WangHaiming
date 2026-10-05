@@ -205,8 +205,10 @@ logs = [
 3. 解释为什么第 2 问不能直接用 `len(logs)` 得到结果，需要什么遍历结构？
 
 1.[item for item in logs if item["level"] == "ERROR"]
+
 2.from collections import Counter
   Counter(log["user"]for log in logs)
+  
 3.len(logs)用于获取日志列表一共有多少条记录，而不能区分不同用户的记录次数。需要用到for循环遍历，循环每一条日志，提取user用户名进行统计。
 
 ### 第 3 题：异常处理设计
